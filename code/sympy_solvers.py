@@ -9,10 +9,11 @@ def partial_fraction_decomposition(num, den):
     s = sp.symbols('s', real = True)
     eq = num / den
     partial_fraction_decomposition = sp.simplify(sp.apart(eq))
-    return print(partial_fraction_decomposition)
+    return print(f"The decomposition is: {partial_fraction_decomposition}")
 
 ##### inverse laplace transform
-def inverse_laplace_transform(eq,s,t):
+def inverse_laplace_transform(eq,s):
+    t = sp.symbols('t',real= True)
     output = sp.inverse_laplace_transform(eq,s,t)
     return print(output)
 
@@ -35,5 +36,21 @@ def find_magnitude(eq):
     return print(f'Magnitude: {magnitude}')
 
 
+#### finding the poles/ zeros of the system
+def find_poles_and_zeros(num,den):
+    s =sp.symbols('s', real = True)
+    num = sp.poly(num,s)
+    den = sp.poly(den,s)
+    zeros = num.all_roots()
+    poles = den.all_roots()
+    return print(f'Zeros: {zeros}, Poles: {poles}')
 
+
+#### sample runs
+s =sp.symbols('s', real = True)
+num = s+1
+den = (s+2)*(s+3)
+# partial_fraction_decomposition(num,den)
+inverse_laplace_transform(num/den,s)
+# find_poles_and_zeros(num,den)
 

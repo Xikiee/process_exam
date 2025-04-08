@@ -19,10 +19,6 @@ def multi_system_step_response(num1, den1):
     plt.show()
 
 
-
-
-
-
 #### h1 + h2 system ste presonse plotting
 def multi_system_step_response(num1, den1, num2, den2):
     sys1 = ctrl.TransferFunction(num1,den1)
