@@ -17,3 +17,18 @@ def  linearization_of_system(eq):
 # xs = sp.Symbol('x_s')  # Operating point
 # eq = 4 * sp.sqrt(x)
 # linearization_of_system(eq)
+
+#### linearization of a system with multiple variables
+
+def linearization_system_with_multiple_variables(eq):
+    X, Y = sp.symbols('X Y')
+    X_o, Y_o = sp.symbols('X_o Y_o') 
+    eq = eq.subs({X: X_o, Y: Y_o}) + sp.diff(eq,X).subs({X: X_o, Y: Y_o}) * (X - X_o) + sp.diff(eq,Y).subs({X: X_o, Y: Y_o}) * (Y -Y_o)
+    return sp.pprint(eq)
+
+
+#### how to use 
+X = sp.symbols('X')
+Y = sp.symbols('Y')
+eq = (1.23*X)/(Y+2)
+linearization_system_with_multiple_variables(eq)
