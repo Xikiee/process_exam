@@ -5,7 +5,7 @@ import control as ctrl
 
 #### h1 system step response plotting
 
-def multi_system_step_response(num1, den1):
+def system_step_response(num1, den1):
     sys = ctrl.TransferFunction(num1,den1)
 
     t = np.linspace(0,50,10000)
