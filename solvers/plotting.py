@@ -12,7 +12,9 @@ def plotting_equation(t, eq):
     plt.legend()
     plt.show()
 
-t = np.linspace(0,50,10000)
-eq = 22.8*0.4907*((1/12)*np.exp(-6*t) - (1/8)*np.exp(-4*t) + 1/24)
-plotting_equation(t,eq)
+
+#### how to use
+# t = np.linspace(0,50,10000)
+# eq = 22.8*0.4907*((1/12)*np.exp(-6*t) - (1/8)*np.exp(-4*t) + 1/24)
+# plotting_equation(t,eq)
 
