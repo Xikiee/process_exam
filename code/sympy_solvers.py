@@ -26,3 +26,14 @@ def split_system(num,den):
     return print(f'Real part: {real_part}, Imaginary part: {imag_part}')
 
 
+#### finding magnitude 
+def find_magnitude(eq):
+    s = sp.symbols('s', real = True)
+    real_part = sp.simplify(sp.re(eq))
+    imag_part = sp.simplify(sp.im(eq))
+    magnitude = sp.sqrt(real_part**2 + imag_part**2)
+    return print(f'Magnitude: {magnitude}')
+
+
+
+
