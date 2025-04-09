@@ -13,7 +13,7 @@ def plotting_bode_plot(num, den):
     plt.show()
     return print(f"gain margin ={gm}, phase margin = {pm}, gain frequency = {wg}, phase frequency = {wp}")
 
-num = [1]
-den = [1,1]
+num = [40]
+den = [1,2,1]
 plotting_bode_plot(num,den) ####### sample plotting
 
