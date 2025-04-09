@@ -26,11 +26,11 @@ def linearization_system_with_multiple_variables(eq, X_o, Y_o):
     return sp.pprint(eq)
 
 
-# #### how to use 
-# X = sp.symbols('X')
-# Y = sp.symbols('Y')
-# X_o, Y_o = sp.symbols('X_o Y_o') # can use this or act values
-# # X_o = 50
-# # Y_o = 1.23
-# eq = (1.23*X)/(Y+2)
-# linearization_system_with_multiple_variables(eq,X_o,Y_o)
+#### how to use 
+X = sp.symbols('X')
+Y = sp.symbols('Y')
+X_o, Y_o = sp.symbols('X_o Y_o') # can use this or act values
+# X_o = 50
+# Y_o = 1.23
+eq = (1.23*X)/(Y+2)
+linearization_system_with_multiple_variables(eq,X_o,Y_o)
