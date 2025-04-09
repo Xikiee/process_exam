@@ -4,40 +4,82 @@ import control as ctrl
 import sympy as sp
 
 #### plotting bode plots
-def plotting_bode_plot(num, den):
+def bode_plot(num, den):
     sys = ctrl.TransferFunction(num,den)
-    gm, pm,wg,wp = ctrl.margin(sys)             # to find the different margins
+    gm, pm,wg,wp = ctrl.margin(sys)           
     omega = np.logspace(-1,2,500, base=10)
     ctrl.bode(sys, omega, dB=True)
     plt.xlim(0.1,100)
     plt.show()
     return print(f"gain margin ={gm}, phase margin = {pm}, gain frequency = {wg}, phase frequency = {wp}")
 
-num = [40]
-den = [1,2,1]
-plotting_bode_plot(num,den) ####### sample plotting
+# num = [40]
+# den = [1,2,1]
+# bode_plot(num,den) ####### sample plotting
 
 
 #### bode plot of a system with time delay
-delay = 1
-num, den = ctrl.pade(delay, 8)
-d_fun = ctrl.TransferFunction(num, den)
-# Define transfer function
-h1 = ctrl.TransferFunction([1, 4], [1, 2, 4])
-h2 = h1*d_fun
-# Compute gain margin, phase margin, and crossover frequencies
-gm, pm, wg, wp = ctrl.margin(h2)
+def bode_plot_with_delay(num, den, delay):
+    num_d, den_d = ctrl.pade(delay,8)
+    d_fun = ctrl.TransferFunction(num_d,den_d)
+
+    sys = ctrl.TransferFunction(num, den)
+    sys_d = sys * d_fun
+    gm, pm, wg, wp = ctrl.margin(sys_d)
+    omega = np.logspace(-1,2,500, base=10)
+
+    ctrl.bode(sys_d, omega, dB=True )
+    plt.xlim(0.1,100)
+    plt.show()
+
+    return print(f"gain margin = {gm}, phase margin = {pm}, gain frequency = {wg}, phase frequency = {wp}")
 
 
-gm_db = 20 * np.log10(gm)
-print(f"Gain Margin (GM): {gm:.5f}")
-print(f"Gain Margin db = {gm_db:.5f}")
-print(f"Phase Margin (PM): {pm:.5f} degrees")
-print(f"Gain Crossover Frequency (Wg): {wg:.5f} rad/s")
-print(f"Phase Crossover Frequency (Wp): {wp:.5f} rad/s")
+# bode_plot_with_delay([1,4],[1,2,4], 1) #### sample plotting
 
-# Plot Bode plot
-mag, phase, omega = ctrl.bode_plot(h2, dB=True, Hz=True, margins=True)
 
-# Show plot
-plt.show()
+#### plotting bode plots
+def bode_plot_multi_sys(num1, den1, num2, den2):
+    sys1 = ctrl.TransferFunction(num1,den2)
+    sys2 = ctrl.TransferFunction(num2, den2)
+    sys = sys1 + sys2
+    gm, pm,wg,wp = ctrl.margin(sys)           
+    omega = np.logspace(-1,2,500, base=10)
+    ctrl.bode(sys, omega, dB=True)
+    plt.xlim(0.1,100)
+    plt.show()
+    return print(f"gain margin ={gm}, phase margin = {pm}, gain frequency = {wg}, phase frequency = {wp}")
+
+# num1 = [40]
+# den1 = [1,2,1]
+# num2 = [1]
+# den2 = [1,2,1]
+# bode_plot_multi_sys(num1,den1,num2, den2) ####### sample plotting
+
+
+#### bode plot of a system with time delay
+def bode_plot_with_delay_multi_sys(num1, den1, num2, den2, delay):
+    num_d, den_d = ctrl.pade(delay,8)
+    d_fun = ctrl.TransferFunction(num_d,den_d)
+
+    sys1 = ctrl.TransferFunction(num1, den1)
+    sys2 = ctrl.TransferFunction(num2, den2)
+    
+    sys_d = (sys1 + sys2) * d_fun
+    gm, pm, wg, wp = ctrl.margin(sys_d)
+    omega = np.logspace(-1,2,500, base=10)
+
+    ctrl.bode(sys_d, omega, dB=True )
+    plt.xlim(0.1,100)
+    plt.show()
+
+    return print(f"gain margin = {gm}, phase margin = {pm}, gain frequency = {wg}, phase frequency = {wp}")
+
+
+# num1 = [40]
+# den1 = [1,2,1]
+# num2 = [1]
+# den2 = [1,2,1]
+# delay = 1
+# bode_plot_with_delay_multi_sys(num1,den1,num2, den2,delay) ####### sample plotting
+
