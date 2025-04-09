@@ -49,32 +49,39 @@ def find_poles_and_zeros(num,den):
     return print(f'Zeros: {zeros}, Poles: {poles}')
 
 
-def find_phase_margin(num,den):
-    eq = num/den 
-    s = sp.symbols('s', real = True)
+def find_phase_margin(num, den):
+    s = sp.symbols('s', real=True)
+    eq = num / den
 
-    #change s to w * sp.I
-    w = sp.symbols('w',real = True)
-    eq = eq.subs(s,w*sp.I)
+    w = sp.symbols('w', real=True, positive=True)
+    eq = eq.subs(s, w * sp.I)
 
-    #find the gain frequency (magnitude = 1)
-    real_part = sp.simplify(sp.re(eq))
-    imag_part = sp.simplify(sp.im(eq))
+    real_part = sp.re(eq)
+    imag_part = sp.im(eq)
     magnitude = sp.sqrt(real_part**2 + imag_part**2)
-    
-    w_g = sp.solve(magnitude -1,w)
 
-    #subsitute w_g into the imaginary part of the system to find the phase margin
-    new_real = real_part.subs(w,w_g[-1])
-    new_imag = imag_part.subs(w,w_g[-1])
-    phase_margin = sp.atan(new_imag/new_real)
-     
-    return print(f"cross-over frequency: {w_g}, Phase margin is: {phase_margin} ")
+
+    w_g_solutions = sp.solve(sp.Eq(magnitude, 1), w)
+    w_g_solutions = [sol.evalf() for sol in w_g_solutions if sol.is_real and sol > 0]
+
+    if not w_g_solutions:
+        return print("No valid gain crossover frequency found.")
+
+    w_g = w_g_solutions[-1]  
+
+    phase_rad = sp.arg(eq.subs(w, w_g))  
+    phase_deg = sp.deg(phase_rad)        
+
+    phase_margin = 180 + phase_deg.evalf()
+
+    return print(f"Cross-over frequency: {w_g:.3f} rad/s, Phase margin: {phase_margin:.2f} degrees")
+
 
 s = sp.symbols('s', real = True)
 num = 40
 den = (s+1)**2
 find_phase_margin(num,den)
+# find_magnitude(num/den)
 
 
 #### sample runs
