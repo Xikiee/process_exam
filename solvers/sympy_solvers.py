@@ -30,9 +30,12 @@ def split_system(num,den):
 #### finding magnitude 
 def find_magnitude(eq):
     s = sp.symbols('s', real = True)
-    real_part = sp.simplify(sp.re(eq))
-    imag_part = sp.simplify(sp.im(eq))
-    magnitude = sp.sqrt(real_part**2 + imag_part**2)
+    w = sp.symbols('w', real = True)
+    new_eq = eq.subs(s,w*sp.I)
+
+    real_part = sp.simplify(sp.re(new_eq))
+    imag_part = sp.simplify(sp.im(new_eq))
+    magnitude = sp.simplify(sp.sqrt(real_part**2 + imag_part**2))
     return print(f'Magnitude: {magnitude}')
 
 
@@ -46,12 +49,42 @@ def find_poles_and_zeros(num,den):
     return print(f'Zeros: {zeros}, Poles: {poles}')
 
 
+def find_phase_margin(num,den):
+    eq = num/den 
+    s = sp.symbols('s', real = True)
+
+    #change s to w * sp.I
+    w = sp.symbols('w',real = True)
+    eq = eq.subs(s,w*sp.I)
+
+    #find the gain frequency (magnitude = 1)
+    real_part = sp.simplify(sp.re(eq))
+    imag_part = sp.simplify(sp.im(eq))
+    magnitude = sp.sqrt(real_part**2 + imag_part**2)
+    
+    w_g = sp.solve(magnitude -1,w)
+
+    #subsitute w_g into the imaginary part of the system to find the phase margin
+    new_real = real_part.subs(w,w_g[-1])
+    new_imag = imag_part.subs(w,w_g[-1])
+    phase_margin = sp.atan(new_imag/new_real)
+     
+    return print(f"cross-over frequency: {w_g}, Phase margin is: {phase_margin} ")
+
+s = sp.symbols('s', real = True)
+num = 40
+den = (s+1)**2
+find_phase_margin(num,den)
+
+
 #### sample runs
-s =sp.symbols('s', real = True)
-num = s+1
-den = (s+2)*(s+3)
+# s =sp.symbols('s', real = True)
+# num = s+1
+# den = (s+2)*(s+3)
 # partial_fraction_decomposition(num,den)
-inverse_laplace_transform(num/den,s)
+# inverse_laplace_transform(num/den,s)
 # find_poles_and_zeros(num,den)
+
+
 
 
