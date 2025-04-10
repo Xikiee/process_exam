@@ -13,7 +13,7 @@ def feedback(c_s, g_s):
     c_s = ctrl.TransferFunction(c_s[0], c_s[1])
     g_s = ctrl.TransferFunction(g_s[0], g_s[1])
 
-    feedback_system = c_s/ (1 + c_s*g_s)
+    feedback_system = ctrl.feedback(c_s*g_s)
     return print(f"feedback system :{feedback_system}") 
 
 
