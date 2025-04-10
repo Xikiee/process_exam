@@ -280,52 +280,13 @@ def identify_model_and_calculate_params(eq, epsilon=1.0):
     
     return result
 
-# Test cases
-# test_equations = [
-#     "2/(3s+1)",                     # Model A
-#     "1.5/((2s+1)(4s+1))",           # Model B
-#     "0.8/(0.5s2+1.2s+1)",           # Model C
-#     "2(-0.5s+1)/(3s+1)",            # Model D
-#     "1.2(-1s+1)/((2s+1)(1s+1))",    # Model E
-#     "0.5(-0.3s+1)/(0.25s2+0.8s+1)", # Model F
-#     "2/s",                          # Model H
-#     "1.5(2s+1)/s",                  # Model I
-#     "0.8/(s(2s+1))",                # Model J
-# ]
+#### how to use
+################ input (s+1) as (1s+1)
+################ input (s^2+1) as (1s2+1)
 
-# epsilon = 1.0
-# for eq in test_equations:
-#     result = identify_model_and_calculate_params(eq, epsilon)
-#     if result['model_type']:
-#         print(f"\nEquation: {eq}")
-#         print(f"Model: {result['model_type']}")
-#         print(f"Parameters: {result['parameters']}")
-#         print("PID Parameters:")
-#         print(f"  k_c: {result['pid_params']['k_c']:.4f}")
-#         print(f"  τ_I: {result['pid_params']['τ_I'] if result['pid_params']['τ_I'] is not None else '-'}")
-#         print(f"  τ_D: {result['pid_params']['τ_D'] if result['pid_params']['τ_D'] is not None else '-'}")
-#         print(f"  τ_F: {result['pid_params']['τ_F'] if result['pid_params']['τ_F'] is not None else '-'}")
-#         print(f"Comments: {result['comments']}")
-#     else:
-#         print(f"\nNo model matched for equation: {eq}")
+# eq_1 = sp.simplify*()
 
-
-
-# eq = "2/(3s+1)" #### insert your equation here as a string
-
-# model, params, k_c = identify_model_and_calculate_params(eq, epsilon=1.0) 
-# if model:
-#     print(f"Model {model} with parameters: {params}")
-#     print(f"Calculated k_c value: {k_c}")
-#     print(f'τ_I: {params["τ_I"]}')
-#     print(f'τ_D: {params["τ_D"]}')
-#     print(f'τ_F: {params["τ_F"]}')
-# else:
-#     print("No matching model found")
-
-
-
-eq = "5/((s+1)(2s+1))" #### insert your equation here as a string
+eq = "5/((1s+1)(2s+1))" #### insert your equation here as a string 
 
 result = identify_model_and_calculate_params(eq, epsilon=1.0)
 model = result['model_type']
