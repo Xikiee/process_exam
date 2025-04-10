@@ -1,3 +1,9 @@
+import numpy as np
+import control as ct
+import pandas as pd
+import sympy as sp
+from sympy.abc import s
+from imc_tuning_table import *
 import re
 
 def identify_model_and_calculate_params(eq, epsilon=1.0):
@@ -319,7 +325,7 @@ def identify_model_and_calculate_params(eq, epsilon=1.0):
 
 
 
-eq = "2/(3s+1)" #### insert your equation here as a string
+eq = "5/((s+1)(2s+1))" #### insert your equation here as a string
 
 result = identify_model_and_calculate_params(eq, epsilon=1.0)
 model = result['model_type']
