@@ -286,7 +286,7 @@ def identify_model_and_calculate_params(eq, epsilon=1.0):
 
 # eq_1 = sp.simplify*()
 
-eq = "4/(5s+1)" #### insert your equation here as a string 
+eq = "7.5/(3/2s2+5/2s+1)" #### insert your equation here as a string 
 
 result = identify_model_and_calculate_params(eq, epsilon=1.0)
 model = result['model_type']
