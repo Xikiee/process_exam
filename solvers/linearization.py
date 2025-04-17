@@ -15,7 +15,7 @@ def  linearization_of_system(eq):
 ### how to use
 x = sp.Symbol('x')
 xs = sp.Symbol('x_s')  # Operating point
-eq = 1/(sp.tanh(3*x))
+eq = sp.sqrt(x)
 linearization_of_system(eq)
 
 #### linearization of a system with multiple variables

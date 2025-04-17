@@ -4,7 +4,7 @@ import control as ctrl
 import sympy as sp
 
 ### finding the poles and zeros of the system
-def plotting_poles_and_zeros_multi_sys(num1, den1):
+def plotting_poles_zeros(num1, den1):
     sys = ctrl.TransferFunction(num1,den1)
     ctrl.pzmap(sys,Plot = True)
     plt.show()
@@ -38,9 +38,20 @@ def update_root_locus(num, den, K=1):
 # Interactive slider for gain K
 # interact(update_root_locus, K=(0.01, 300, 0.5))
 
-num = [18,6]
-den = [3,22,19]
-update_root_locus(num, den)
+
+s= sp.symbols('s')
+eq0 =(s+3)*(s+2)
+eq1 = (s+6)*(s+5)
+
+n = sp.expand(eq0)
+d = sp.expand(eq1)
+print(f'n = {n}, d = {d}')
+
+
+num = [1,5,6]
+den = [1,11,30]
+
+# plotting_poles_zeros(num, den)
 
 # num1 = [-10,10]
 # den1 = [1,2.5,1]
